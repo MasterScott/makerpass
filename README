@@ -1,0 +1,9 @@
+Device firmware setup
+==========================
+
+- Website - https://github.com/esp8266/arduino
+
+1. Install arduino 1.6.5 or later
+2. Install esp8266 add-on from boards menu
+3. Open rfid_reader.ino sketch
+4. Update credentials and TCP endpoint
