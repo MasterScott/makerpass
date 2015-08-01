@@ -19,7 +19,7 @@ const char *host = "192.168.1.163";
 const int port = 8000;
 
 // Machine ID
-const int machine_id = 5001;
+const int scanner_id = 5001;
 
 // Global client
 WiFiClient client;
@@ -35,7 +35,7 @@ void setup() {
   WiFi.begin (ssid, passwd);
 
   // Wait until we are connected
-  Serial.print ("Connecting");
+  Serial.print (String ("Connecting to ") + ssid);
   while (WiFi.status () != WL_CONNECTED) {
     delay (500);
     Serial.print (".");
@@ -114,8 +114,16 @@ void loop() {
         goto next_id;
       }
 
+      // Setup destination url
+      String url = "/cgi-bin/HUD.cgi?scanner_id=";
+      url += scanner_id;
+      url += "?user_id=";
+      url += (id & 0xffff);
+            
       // Send id to host
-      client.print (String ("Machine=") + machine_id + "&User=" + (id & 0xffff) + "\r\n");
+      client.print (String ("GET ") + url + " HTTP/1.1\r\n" +
+                    "Host: " + host + "\r\n" +
+                     "Connection: close\r\n\r\n");
       delay (10);
 
       // Get Response
@@ -128,12 +136,12 @@ void loop() {
     }
 
   next_id:
+    // Reset index
+    rfid_idx = 0;
+
     // Attach interrupts
     attachInterrupt (zeroPin, data0, FALLING);
     attachInterrupt (onePin, data1, FALLING);
-
-    // Reset index
-    rfid_idx = 0;
   }
 }
 
