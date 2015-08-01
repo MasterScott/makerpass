@@ -45,7 +45,7 @@ void setup() {
   Serial.begin (115200);
 
   // Setup AP
-  WiFi.softAP ("Makerpass");
+  WiFi.softAP ((String ("Makerpass") + "-" + WiFi.softAPmacAddress()).c_str());
 
   // Setup mDNS to resolve makerpass.local
   //MDNS.begin ("makerpass");
@@ -98,7 +98,7 @@ void handle_cgi (void)
   server.send (200, "text/plain", "Configured, connecting to AP");
 
   // Debug format str
-  Serial.println (format);
+  //Serial.println (format);
 
   // Decode format url to buf
   url_decode (buf, format.c_str());
