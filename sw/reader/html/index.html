@@ -12,7 +12,7 @@ Port <input type ="text" name="port"><br>
 <h3>Payload</h3>
 Scanner id <input type="text" name="sid"><br>
 <textarea name="format" cols="40" rows="6" maxlength="199">
-GET /cgi-bin/HUD.cgi?scanner_id=$sid&user_id=$uid HTTP/1.1\r\nHost: $host\r\nConnection: close\r\n\r\n
+GET /cgi-bin/registerscan.cgi?scanner_id=$sid&user_id=$uid HTTP/1.1\r\nHost: $host\r\nConnection: close\r\n\r\n
 </textarea><br>
 <input type="submit" value="Save Settings">
 </form>
